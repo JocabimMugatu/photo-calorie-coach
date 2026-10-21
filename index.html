@@ -80,6 +80,20 @@ h1 em{font-style:normal;color:var(--green)}
 .me{align-self:flex-end;background:#0a0a0a;color:#fff;font-weight:400;border-bottom-right-radius:5px}
 .msg .meta{font-size:10px;color:var(--muted);margin-top:4px;font-weight:400}
 .photo-bubble{align-self:flex-end;width:185px;border-radius:16px;overflow:hidden;border-bottom-right-radius:5px;background:linear-gradient(135deg,#e8d9b8 0%,#d9c49a 45%,#c9a877 100%);aspect-ratio:4/3;position:relative}
+.photo-bubble img{width:100%;height:100%;object-fit:cover;display:block}
+.callcard{margin-top:14px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 12px 32px rgba(0,0,0,.06)}
+.call-play{width:46px;height:46px;border-radius:50%;background:var(--ink);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .15s ease,box-shadow .15s ease}
+.call-play:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.call-play svg{width:15px;height:15px;fill:#fff}
+.call-play .i-pause{display:none}.callcard.playing .i-play{display:none}.callcard.playing .i-pause{display:block}
+.call-info{flex:1;min-width:200px}
+.call-info .when{font-size:12px;font-weight:600;color:var(--ink)}
+.call-info .from{font-size:12px;color:var(--green);font-weight:500;margin:2px 0 6px}
+.call-info p{font-size:13.5px;color:var(--muted);line-height:1.55;margin:0}
+.call-track{flex:1.1;min-width:190px}
+.call-bar{height:4px;background:#ececec;border-radius:2px;cursor:pointer}
+.call-bar i{display:block;height:100%;width:0;background:var(--green);border-radius:2px}
+.call-time{font-size:12px;color:var(--muted);margin-top:8px;font-variant-numeric:tabular-nums}
 .photo-bubble .plate{position:absolute;border-radius:50%;background:#f4f1ea;box-shadow:0 6px 18px rgba(0,0,0,.14);display:flex}
 .plate-1{width:72px;height:72px;bottom:13px;left:13px}
 .plate-2{width:56px;height:56px;bottom:21px;right:15px}
@@ -255,13 +269,14 @@ section[id]{scroll-margin-top:74px}
         <div class="phone">
           <div class="phone-head"><div class="avatar"><b></b></div><div><b>Fo · your coach</b><span>online</span></div></div>
           <div class="chat" id="chat">
-            <div class="photo-bubble"><div class="plate plate-1"><i style="width:26px;height:26px;background:#f0a24b;left:16px;top:16px"></i><i style="width:20px;height:14px;background:#e8d15a;left:44px;top:12px;border-radius:8px"></i><i style="width:18px;height:18px;background:#f5f0e6;right:14px;bottom:14px"></i></div><div class="plate plate-2"><i style="width:22px;height:16px;background:#c96f4a;left:10px;top:12px;border-radius:6px"></i><i style="width:14px;height:14px;background:#7fb069;right:12px;bottom:12px"></i></div></div>
+            <div class="photo-bubble"><img src="breakfast.jpg" alt="Breakfast plate: two eggs, wheat toast, coffee"></div>
             <span class="meta" style="align-self:flex-end">8:04 AM</span>
             <div class="msg them">Two eggs, wheat toast, and a coffee. <b>About 420 calories, 24g protein.</b> You're at 420 for the day.</div>
             <div class="msg me">skipped lunch, had a burrito at 3</div>
             <div class="msg them">Burrito, ~750. Running total: <b>1,170</b>. Still room for a solid dinner under your 2,000 goal.</div>
             <span class="meta" style="align-self:flex-start">1:02 PM</span>
             <div class="msg them">You've gone quiet since breakfast. Send dinner when you have it.</div>
+            <div class="photo-bubble"><img src="dinner.jpg" alt="Grilled chicken bowl photo"></div>
             <div class="msg me">grilled chicken bowl, extra rice</div>
             <div class="msg them">~610 with the extra rice. Day total: <b>1,780 of 2,000</b>. Protein 131g. Strong day.</div>
             <div class="typing"><i></i><i></i><i></i></div>
@@ -328,6 +343,22 @@ section[id]{scroll-margin-top:74px}
       <div class="note reveal"><div class="when">1:00 PM</div><div class="from">Fo · text</div><p>No meal photo since breakfast. Send your lunch before the afternoon slips.</p></div>
       <div class="note reveal"><div class="when">9:00 PM</div><div class="from">Fo · text</div><p>You logged 1,740 of your 2,000 goal. Protein 118g. Solid day. One fix: lunch went unphotographed, so that number is a guess.</p></div>
       <div class="note reveal"><div class="when">Sunday 6:00 PM</div><div class="from">Fo · text</div><p>Week recap: 6 of 7 days logged, 1,930 average calories, protein hit 5 of 7 days. Fix for next week: the weekend dips.</p></div>
+    </div>
+    <div class="callcard reveal">
+      <button id="callPlay" class="call-play" aria-label="Play a sample check-in call">
+        <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5l11 6.5-11 6.5z"/></svg>
+        <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h3.6v12H3zM9.4 2H13v12H9.4z"/></svg>
+      </button>
+      <div class="call-info">
+        <div class="when">Hear a real check-in</div>
+        <div class="from">Fo · phone call · 60 seconds</div>
+        <p>Not a mock-up. This is an actual call Fo places: a quick recap, one question, one nudge. It happens at the times you set.</p>
+      </div>
+      <div class="call-track">
+        <div class="call-bar" id="callBar"><i id="callFill"></i></div>
+        <div class="call-time"><span id="callCur">0:00</span> / <span id="callDur">1:00</span></div>
+      </div>
+      <audio id="callAudio" src="call.mp3" preload="metadata"></audio>
     </div>
   </div>
 </section>
@@ -452,12 +483,29 @@ if('IntersectionObserver' in window){new IntersectionObserver(function(e){bar.cl
         setTimeout(function(){typingFor(1200,function(){
           show(8);
           setTimeout(run,5200);
-        })},2900);
+        })},3500);
       })},250);
     });
   }
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){kids.forEach(function(k){k.classList.add('on')});chat.scrollTop=chat.scrollHeight;return}
   setTimeout(run,600);
+})();
+</script>
+<script>
+(function(){
+  var card=document.querySelector('.callcard'); if(!card) return;
+  var au=document.getElementById('callAudio'),btn=document.getElementById('callPlay'),
+  fill=document.getElementById('callFill'),cur=document.getElementById('callCur'),
+  dur=document.getElementById('callDur'),bar=document.getElementById('callBar');
+  function fmt(x){x=Math.max(0,Math.round(x));return Math.floor(x/60)+':'+String(x%60).padStart(2,'0')}
+  if(au.duration&&isFinite(au.duration)){dur.textContent=fmt(au.duration)}
+  au.addEventListener('loadedmetadata',function(){dur.textContent=fmt(au.duration)});
+  btn.addEventListener('click',function(){au.paused?au.play():au.pause()});
+  au.addEventListener('play',function(){card.classList.add('playing')});
+  au.addEventListener('pause',function(){card.classList.remove('playing')});
+  au.addEventListener('ended',function(){card.classList.remove('playing');fill.style.width='0%';cur.textContent='0:00'});
+  au.addEventListener('timeupdate',function(){fill.style.width=(au.currentTime/(au.duration||1)*100)+'%';cur.textContent=fmt(au.currentTime)});
+  bar.addEventListener('click',function(e){var r=bar.getBoundingClientRect();if(au.duration){au.currentTime=au.duration*((e.clientX-r.left)/r.width)}});
 })();
 </script>
 </body>
