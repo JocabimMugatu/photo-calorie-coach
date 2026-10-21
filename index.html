@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photo Calorie Coach, free. Cal AI estimates + MyBodyTutor accountability, $0</title>
 <meta name="description" content="Text a photo of every meal. Get a calorie estimate, a running daily log, and an AI coach that checks in on you, even calls you. Free. The photo apps don't coach you and the human coach charges ~$399/mo.">
+<meta name="theme-color" content="#08090b">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Photo Calorie Coach">
 <meta property="og:title" content="Photo Calorie Coach — Cal AI estimates, MyBodyTutor accountability, $0">
@@ -16,7 +17,163 @@
 <meta name="twitter:description" content="Text a photo of every meal. An AI coach that estimates, logs, and checks in. Free.">
 <meta name="twitter:image" content="https://jocabimmugatu.github.io/photo-calorie-coach/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B8%3C/text%3E%3C/svg%3E">
-<meta name="theme-color" content="#0e1116">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090b; --bg2:#0d0f12; --surface:#111318; --surface2:#15181e;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
+  --txt:#f2f3f5; --txt2:#a2a8b3; --muted:#6d7480;
+  --green:#34d474; --green-soft:rgba(52,212,116,.14); --green-line:rgba(52,212,116,.35);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.disp{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-.03em}
+::selection{background:rgba(52,212,116,.3)}
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:80;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(8,9,11,.85);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+nav .cta-sm{background:#fff;color:#0a0b0d;font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:999px;text-decoration:none;transition:transform .15s}
+nav .cta-sm:hover{transform:scale(1.04)}
+/* HERO */
+.hero{position:relative;padding:170px 0 90px;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.glow-a{width:640px;height:640px;background:radial-gradient(circle,rgba(52,212,116,.16),transparent 65%);top:-260px;right:-160px}
+.glow-b{width:520px;height:520px;background:radial-gradient(circle,rgba(52,212,116,.07),transparent 65%);bottom:-200px;left:-180px}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--green);border:1px solid var(--green-line);background:var(--green-soft);padding:7px 14px;border-radius:999px;margin-bottom:28px}
+.badge .dot{width:6px;height:6px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+h1{font-size:clamp(40px,5.6vw,72px);line-height:1.04;font-weight:700;letter-spacing:-.04em}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:clamp(16px,1.8vw,18.5px);color:var(--txt2);max-width:520px;margin-top:22px;line-height:1.65}
+.sub strong{color:var(--txt);font-weight:600}
+.hero-cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;font-weight:600;font-size:16px;padding:14px 28px;border-radius:999px;text-decoration:none;transition:transform .18s,box-shadow .18s}
+.btn-main{background:var(--green);color:#04110a;box-shadow:0 8px 32px rgba(52,212,116,.35)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(52,212,116,.45)}
+.btn-ghost{color:var(--txt2);border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35);color:var(--txt)}
+.hero-note{margin-top:18px;font-size:13px;color:var(--muted)}
+/* phone chat mockup */
+.phone{background:linear-gradient(180deg,#16191f,#0e1013);border:1px solid var(--line2);border-radius:28px;padding:14px 12px 18px;box-shadow:0 40px 100px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);max-width:360px;margin-left:auto}
+.phone-head{display:flex;align-items:center;gap:9px;padding:4px 6px 12px;border-bottom:1px solid var(--line)}
+.avatar{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#3ddc84,#0e5f34);flex:none}
+.phone-head b{font-size:13.5px;font-weight:600}
+.phone-head span{font-size:11px;color:var(--muted);display:block}
+.chat{padding:14px 4px 0;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:82%;padding:9px 13px;border-radius:17px;font-size:13.5px;line-height:1.45}
+.msg p+p{margin-top:6px}
+.them{align-self:flex-start;background:#232830;color:#e6e9ee;border-bottom-left-radius:5px}
+.me{align-self:flex-end;background:var(--green);color:#04110a;font-weight:500;border-bottom-right-radius:5px}
+.msg .meta{font-size:10px;opacity:.55;margin-top:4px;font-weight:400}
+.photo-bubble{align-self:flex-end;width:190px;border-radius:17px;overflow:hidden;border-bottom-right-radius:5px;background:linear-gradient(135deg,#e8d9b8 0%,#d9c49a 45%,#c9a877 100%);aspect-ratio:4/3;position:relative}
+.photo-bubble .plate{position:absolute;border-radius:50%;background:#f4f1ea;box-shadow:0 6px 18px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.plate-1{width:74px;height:74px;bottom:14px;left:14px}
+.plate-2{width:58px;height:58px;bottom:22px;right:16px}
+.plate i{position:absolute;border-radius:50%}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;background:#232830;border-radius:17px;border-bottom-left-radius:5px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#8a93a2;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+/* SECTIONS */
+section{padding:110px 0}
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+h2{font-size:clamp(28px,3.4vw,44px);line-height:1.12;font-weight:700;letter-spacing:-.03em;max-width:640px}
+.lead{color:var(--txt2);font-size:16.5px;max-width:560px;margin-top:14px}
+.divider{height:1px;background:var(--line)}
+/* dead-ends */
+.deads{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:52px}
+.dead{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;position:relative}
+.dead h3{font-size:21px;margin-bottom:12px}
+.dead p{color:var(--txt2);font-size:15px}
+.dead .tag{position:absolute;top:-11px;left:26px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.dead-app .tag{background:#2a1d1d;color:#e88;border:1px solid rgba(232,120,120,.3)}
+.dead-coach .tag{background:#2a2415;color:#e8c96b;border:1px solid rgba(232,201,107,.3)}
+.big-price{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:#e8c96b;margin-top:14px}
+.big-price small{font-size:13px;font-weight:500;color:var(--muted);font-family:'Inter',sans-serif}
+/* the gap */
+.gap-band{margin-top:64px;text-align:center;background:linear-gradient(180deg,transparent,var(--green-soft),transparent);border:1px solid var(--green-line);border-radius:20px;padding:44px 30px}
+.gap-band p{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,2.6vw,28px);font-weight:600;letter-spacing:-.02em}
+.gap-band p em{font-style:normal;color:var(--green)}
+/* table */
+.tbl{margin-top:52px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.tbl table{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th,.tbl td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl thead th{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--bg2)}
+.tbl .fo-col{background:rgba(52,212,116,.06)}
+.tbl .fo-col-h{color:var(--green)}
+.yes{color:var(--green);font-weight:600}
+.no{color:#67707e}
+.mid{color:#c9a24d}
+.tbl td:first-child{color:var(--txt2);font-weight:500}
+.price-cell{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600}
+.fo-price{color:var(--green);font-size:20px}
+/* steps */
+.steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:52px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
+.step .n{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--green);border:1px solid var(--green-line);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.step h3{font-size:19px;margin-bottom:10px}
+.step p{color:var(--txt2);font-size:14.5px}
+/* prompts */
+.prompts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:52px}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 18px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s,transform .2s}
+.prompt:hover{border-color:var(--line2);transform:translateY(-2px)}
+.prompt .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);border:1px solid var(--green-line);background:var(--green-soft);min-width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px}
+.prompt .body{flex:1;min-width:0}
+.prompt h4{font-size:14.5px;font-weight:600;margin-bottom:8px}
+.prompt .q{font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;color:#9fe8bd;background:#0a1f12;border:1px solid rgba(52,212,116,.18);border-radius:10px;padding:11px 13px}
+.copy{background:var(--surface2);color:var(--txt2);border:1px solid var(--line2);font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;flex:none;margin-top:2px;transition:all .15s}
+.copy:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
+/* honest */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:52px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px}
+.tile h4{font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.tile h4 .ico{color:var(--green);font-size:13px}
+.tile p{color:var(--txt2);font-size:14px}
+/* faq */
+.faq{max-width:720px;margin-top:44px}
+.faq details{border-bottom:1px solid var(--line);padding:20px 4px}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--green);font-size:20px;font-weight:400;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--txt2);font-size:14.5px;margin-top:12px;max-width:600px}
+/* cta band */
+.band{text-align:center;padding:120px 0;position:relative;overflow:hidden}
+.band h2{max-width:700px;margin:0 auto}
+.band .btn{margin-top:36px;font-size:17px;padding:17px 38px}
+/* footer */
+footer{border-top:1px solid var(--line);padding:44px 0 90px;font-size:12.5px;color:var(--muted)}
+footer a{color:var(--txt2)}
+footer p{max-width:720px;margin-bottom:10px}
+/* sticky mobile cta */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:90;display:none;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(8,9,11,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.sticky-cta a{display:block;text-align:center;background:var(--green);color:#04110a;font-weight:700;font-size:15.5px;padding:14px 18px;border-radius:999px;text-decoration:none}
+.sticky-cta.show{display:block}
+@media(min-width:761px){.sticky-cta{display:none!important}}
+@media(max-width:760px){
+  section{padding:72px 0}
+  .hero{padding:120px 0 60px}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .phone{margin:0 auto}
+  h2{font-size:30px}
+  .deads,.steps,.prompts,.tiles{grid-template-columns:1fr}
+  .tbl table{font-size:12.5px}
+  .tbl th,.tbl td{padding:10px 10px}
+}
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Does it really cost nothing?","acceptedAnswer":{"@type":"Answer","text":"Yes. Fo's free plan covers this. You sign up with the link and start the same day. No card, no trial, no upsell."}},
@@ -24,229 +181,135 @@
 {"@type":"Question","name":"Can I use it for macros and weight goals too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The first prompt frames every estimate and recap around whatever goal you set."}}
 ]}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0e1116; --ink2:#39414d; --muted:#6b7482;
-  --green:#16a34a; --green-dark:#128a3f; --cream:#f7f6f2; --card:#ffffff;
-  --pink:#fdf2f4; --line:#e6e4dd;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
-/* NAV */
-nav{position:sticky;top:0;z-index:50;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);color:#fff}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{font-weight:800;font-size:15px;letter-spacing:-.01em}
-.brand span{color:#4ade80}
-nav .cta-sm{background:var(--green);color:#fff;font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:999px;text-decoration:none;white-space:nowrap}
-nav .cta-sm:hover{background:var(--green-dark)}
-/* HERO */
-header.hero{background:radial-gradient(1200px 500px at 80% -10%,rgba(22,163,74,.28),transparent 60%),radial-gradient(900px 420px at 10% 110%,rgba(74,222,128,.14),transparent 60%),#0e1116;color:#fff;padding:88px 0 76px;text-align:center}
-.kicker{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4ade80;border:1px solid rgba(74,222,128,.4);padding:6px 14px;border-radius:999px;margin-bottom:22px}
-h1{font-size:clamp(34px,6vw,58px);line-height:1.08;font-weight:900;letter-spacing:-.03em;max-width:860px;margin:0 auto}
-h1 em{font-style:normal;color:#4ade80}
-.sub{font-size:clamp(16px,2.2vw,19px);color:#b8bfc9;max-width:640px;margin:20px auto 0}
-.sub strong{color:#e8ebef}
-.hero-cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;font-weight:700;font-size:16.5px;padding:15px 30px;border-radius:999px;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease}
-.btn-main{background:var(--green);color:#fff;box-shadow:0 8px 28px rgba(22,163,74,.45)}
-.btn-main:hover{background:var(--green-dark);transform:translateY(-2px)}
-.btn-ghost{color:#dfe4ea;border:1.5px solid rgba(255,255,255,.25)}
-.btn-ghost:hover{border-color:#fff}
-.hero-note{margin-top:16px;font-size:13px;color:#8b93a0}
-.strike{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.45)}
-/* SECTIONS */
-section{padding:72px 0}
-.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin-bottom:10px}
-h2{font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
-.lead{color:var(--ink2);max-width:660px;margin-top:12px;font-size:16.5px}
-/* VERSUS */
-.versus{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
-.vcard{background:var(--pink);border:1px solid #f3d9de;border-radius:18px;padding:26px}
-.vcard h3{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#b45a6b}
-.vcard h4{font-size:19px;font-weight:800;margin:8px 0 4px}
-.vcard .big{font-size:22px;font-weight:800;color:#9f3548;margin-bottom:8px}
-.vcard p{color:var(--ink2);font-size:14.5px}
-/* TABLE */
-.tablewrap{margin-top:22px;overflow-x:auto;border-radius:18px;border:1px solid var(--line);background:#fff}
-table{width:100%;border-collapse:collapse;min-width:640px}
-th,td{padding:13px 16px;font-size:14px;text-align:left;border-bottom:1px solid var(--line)}
-thead th{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:#fbfaf7}
-tbody tr:last-child td{border-bottom:none}
-td:first-child{font-weight:600;color:var(--ink)}
-.yes{color:var(--green-dark);font-weight:700}
-.no{color:#c2415c;font-weight:600}
-.partly{color:#b45309;font-weight:600}
-col.pickcol,th.pickcol,td.pickcol{background:#eefaf1}
-th.pickcol{color:var(--green-dark)}
-tfoot td{font-weight:800;font-size:15px;background:#eefaf1}
-/* HOW */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
-.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
-.step .num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:#eefaf1;color:var(--green-dark);font-weight:800;align-items:center;justify-content:center;font-size:15px;margin-bottom:12px}
-.step h4{font-size:17px;font-weight:800;margin-bottom:6px}
-.step p{font-size:14.5px;color:var(--ink2)}
-.sample{margin-top:34px;background:#0e1116;color:#d9dee5;border-radius:18px;padding:28px;font-size:15px}
-.sample h4{color:#4ade80;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
-.sample p{margin-bottom:10px}
-.sample .you{color:#fff;font-weight:600}
-.sample .you em{font-style:normal;font-weight:400;color:#8b93a0}
-/* PROMPTS */
-.prompts{margin-top:36px;display:grid;gap:14px}
-.prompt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start}
-.prompt .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:2px}
-.prompt .body{flex:1}
-.prompt h4{font-size:15.5px;font-weight:800;margin-bottom:4px}
-.prompt p.q{font-size:14.5px;color:var(--ink2);font-style:italic}
-.copy{flex:none;align-self:center;border:1.5px solid var(--line);background:#fff;color:var(--ink2);font-weight:600;font-size:12.5px;padding:7px 14px;border-radius:999px;cursor:pointer}
-.copy:hover{border-color:var(--green);color:var(--green-dark)}
-/* HONEST */
-.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.tile h4{font-size:16px;font-weight:800;margin-bottom:6px}
-.tile p{font-size:14px;color:var(--ink2)}
-/* CTA BAND */
-.band{background:linear-gradient(120deg,#0e1116,#12331f);color:#fff;text-align:center;padding:76px 0}
-.band h2{font-size:clamp(26px,4vw,38px)}
-.band p{color:#b8bfc9;max-width:560px;margin:14px auto 28px}
-/* FAQ */
-.faq{margin-top:30px;max-width:760px}
-details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
-summary{cursor:pointer;font-weight:700;font-size:15.5px;padding:16px 20px;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";float:right;font-weight:400;color:var(--muted);font-size:18px}
-details[open] summary::after{content:"\2013"}
-details p{padding:0 20px 18px;color:var(--ink2);font-size:14.5px}
-/* FOOTER */
-footer{padding:40px 0 60px;font-size:12.5px;color:var(--muted)}
-footer p{max-width:720px}
-.src{margin-top:10px}
-.src a{color:var(--green-dark)}
-/* RESPONSIVE */
-/* HERO ART */
-.hero-art{max-width:760px;margin:46px auto 0}
-.hero-art img{width:100%;height:auto;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
-/* STICKY MOBILE CTA */
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:70;display:none;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(14,17,22,.95);backdrop-filter:blur(10px);box-shadow:0 -8px 28px rgba(0,0,0,.3)}
-.sticky-cta a{display:block;text-align:center;background:var(--green);color:#fff;font-weight:800;font-size:15.5px;padding:14px 18px;border-radius:999px;text-decoration:none}
-.sticky-cta a:active{background:var(--green-dark)}
-.sticky-cta.show{display:block}
-@media(min-width:761px){.sticky-cta{display:none!important}}
-@media(max-width:400px){.kicker{font-size:11px;letter-spacing:.06em;padding:5px 11px}}
-@media(max-width:760px){
-  .versus,.steps,.tiles{grid-template-columns:1fr}
-  section{padding:52px 0}
-  header.hero{padding:64px 0 56px}
-}
-</style>
 </head>
 <body>
-<nav><div class="wrap"><div class="brand">Photo Calorie <span>Coach</span></div><a class="cta-sm" href="https://wajo.ai/join?code=GROUPREACH">Get it free</a></div></nav>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>Photo Calorie <span style="color:var(--green)">Coach</span></div>
+    <a class="cta-sm" href="https://wajo.ai/join?code=GROUPREACH">Get it free</a>
+  </div>
+</nav>
 
 <header class="hero">
+  <div class="glow glow-a"></div><div class="glow glow-b"></div>
   <div class="wrap">
-    <span class="kicker">Free forever &middot; powered by Fo</span>
-    <h1>Cal AI estimates. MyBodyTutor accountability.<br><em>Both for $0.</em></h1>
-    <p class="sub">Text a photo of every meal and get the estimate, the running log, and an AI coach that <strong>actually checks in on you</strong> — by text, and on a phone call if you want one. The photo apps don't coach you and the human coach charges <strong><span class="strike">~$399/mo</span></strong> &rarr; this is free.</p>
-    <div class="hero-cta">
-      <a class="btn btn-main" href="https://wajo.ai/join?code=GROUPREACH">Sign up free &rarr; text your first meal</a>
-      <a class="btn btn-ghost" href="#compare">See the comparison</a>
+    <div class="hero-grid">
+      <div>
+        <span class="badge"><span class="dot"></span>Free forever · powered by Fo</span>
+        <h1>Cal AI estimates.<br>MyBodyTutor accountability.<br><em>Both for $0.</em></h1>
+        <p class="sub">Text a photo of every meal. You get the estimate, the running log, and an AI coach that <strong>actually checks in on you</strong> — by text, and on a phone call if you want one. The photo apps don't coach you and the human coach charges <strong>~$399/mo</strong>. This is free.</p>
+        <div class="hero-cta">
+          <a class="btn btn-main" href="https://wajo.ai/join?code=GROUPREACH">Sign up free → text your first meal</a>
+          <a class="btn btn-ghost" href="#compare">See the comparison</a>
+        </div>
+        <p class="hero-note">Two-minute signup. No card. No trial. It just works.</p>
+      </div>
+      <div class="reveal">
+        <div class="phone">
+          <div class="phone-head"><div class="avatar"></div><div><b>Fo · your coach</b><span>online</span></div></div>
+          <div class="chat">
+            <div class="photo-bubble"><div class="plate plate-1"><i style="width:26px;height:26px;background:#f0a24b;left:16px;top:16px"></i><i style="width:20px;height:14px;background:#e8d15a;left:44px;top:12px;border-radius:8px"></i><i style="width:18px;height:18px;background:#f5f0e6;right:14px;bottom:14px"></i></div><div class="plate plate-2"><i style="width:22px;height:16px;background:#c96f4a;left:10px;top:12px;border-radius:6px"></i><i style="width:14px;height:14px;background:#7fb069;right:12px;bottom:12px"></i></div><span class="meta" style="align-self:flex-end;color:#3a4652">8:04 AM</span></div>
+            <div class="msg them">Two eggs, wheat toast, and a coffee. <b>About 420 calories, 24g protein.</b> You're at 420 for the day.</div>
+            <div class="msg me">skipped lunch, had a burrito at 3</div>
+            <div class="msg them">Burrito, ~750. Running total: <b>1,170</b>. Still room for a solid dinner under your 2,000 goal.</div>
+            <div class="msg me">love it</div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="hero-note">Two-minute signup. No card. No trial. It just works.</p>
-<figure class="hero-art"><img src="hero.png" alt="Illustration: a phone on a kitchen counter next to two plated meals, texting a meal photo to your coach" loading="lazy" width="1400"></figure>
   </div>
 </header>
 
-<section id="compare">
+<div class="divider"></div>
+
+<section id="why">
   <div class="wrap">
-    <div class="eyebrow">Why ditch them</div>
-    <h2>The paid app skips the coaching. The paid coach skips the free.</h2>
-    <div class="versus">
-      <div class="vcard">
-        <h3>The photo apps</h3>
-        <h4>Cal AI and its clones</h4>
-        <div class="big">A number, then silence.</div>
+    <p class="eyebrow reveal">Why this exists</p>
+    <h2 class="reveal">The paid app skips the coaching. The paid coach skips the free.</h2>
+    <div class="deads">
+      <div class="dead dead-app reveal">
+        <span class="tag">The photo apps · Cal AI and its clones</span>
+        <h3>A number, then silence.</h3>
         <p>Photo logging, streaks, and a subscription around $9.99/mo. The 3-day trial wants your card upfront. Nobody checks whether you logged lunch. Accountability is a streak counter.</p>
       </div>
-      <div class="vcard">
-        <h3>The human coach</h3>
-        <h4>MyBodyTutor</h4>
-        <div class="big">Real accountability, real money.</div>
-        <p>1:1 daily coaching from a real person is the thing that actually works, and their six-month plan is $2,394, about $399 a month. That's the honest price of a human checking in every day.</p>
+      <div class="dead dead-coach reveal">
+        <span class="tag">The human coach · MyBodyTutor</span>
+        <h3>Real accountability, real money.</h3>
+        <p>1:1 daily coaching from a real person is the thing that actually works. And that's what it costs.</p>
+        <div class="big-price">$2,394 <small>for six months, about $399/mo</small></div>
       </div>
     </div>
-    <div class="tablewrap">
+    <div class="gap-band reveal">
+      <p>The part that changes behavior was locked behind $399/mo. <em>Now it's not.</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="compare" style="background:var(--bg2)">
+  <div class="wrap">
+    <p class="eyebrow reveal">The comparison</p>
+    <h2 class="reveal">Same estimate. Same accountability. Different price.</h2>
+    <div class="tbl reveal">
       <table>
-        <colgroup><col><col><col><col class="pickcol"></colgroup>
-        <thead><tr><th></th><th>Photo apps</th><th>Human coach</th><th class="pickcol">Fo</th></tr></thead>
+        <thead><tr><th></th><th>Photo apps</th><th>Human coach</th><th class="fo-col fo-col-h">Fo</th></tr></thead>
         <tbody>
-          <tr><td>Photo calorie &amp; macro estimates</td><td class="yes">Yes</td><td class="partly">Sometimes</td><td class="yes pickcol">Yes</td></tr>
-          <tr><td>Daily check-ins that actually happen</td><td class="no">No</td><td class="yes">Yes</td><td class="yes pickcol">Yes, you set the times</td></tr>
-          <tr><td>Nudges when you go quiet</td><td class="no">No</td><td class="yes">Yes</td><td class="yes pickcol">Yes, by text</td></tr>
-          <tr><td>Weekly recap with a fix for next week</td><td class="partly">Stats only</td><td class="yes">Yes</td><td class="yes pickcol">Yes</td></tr>
-          <tr><td>Real check-in phone calls</td><td class="no">No</td><td class="partly">Sometimes</td><td class="yes pickcol">Yes, on your schedule</td></tr>
-          <tr><td>Everything framed around your goal</td><td class="partly">Partly</td><td class="yes">Yes</td><td class="yes pickcol">Yes</td></tr>
-          <tr><td>Price</td><td>~$9.99/mo</td><td>~$399/mo</td><td class="pickcol"><strong>$0</strong></td></tr>
-          <tr><td>Trial fine print</td><td>3 days, card upfront</td><td>Six-month commitment</td><td class="pickcol">None. It's free</td></tr>
+          <tr><td>Photo calorie &amp; macro estimates</td><td class="yes">Yes</td><td class="mid">Sometimes</td><td class="fo-col yes">Yes</td></tr>
+          <tr><td>Daily check-ins that actually happen</td><td class="no">No</td><td class="yes">Yes</td><td class="fo-col yes">Yes, you set the times</td></tr>
+          <tr><td>Nudges when you go quiet</td><td class="no">No</td><td class="yes">Yes</td><td class="fo-col yes">Yes, by text</td></tr>
+          <tr><td>Weekly recap with a fix for next week</td><td class="no">Stats only</td><td class="yes">Yes</td><td class="fo-col yes">Yes</td></tr>
+          <tr><td>Real check-in phone calls</td><td class="no">No</td><td class="mid">Sometimes</td><td class="fo-col yes">Yes, on your schedule</td></tr>
+          <tr><td>Everything framed around your goal</td><td class="mid">Partly</td><td class="yes">Yes</td><td class="fo-col yes">Yes</td></tr>
+          <tr><td>Price</td><td class="price-cell">~$9.99/mo</td><td class="price-cell">~$399/mo</td><td class="fo-col fo-price">$0</td></tr>
+          <tr><td>Trial fine print</td><td>3 days, card upfront</td><td>Six-month commitment</td><td class="fo-col">None. It's free</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<section id="how" style="background:#fbfaf7">
+<section id="how">
   <div class="wrap">
-    <div class="eyebrow">How it works</div>
-    <h2>Three steps and your coach is on duty</h2>
+    <p class="eyebrow reveal">How it works</p>
+    <h2 class="reveal">Three steps and your coach is on duty</h2>
     <div class="steps">
-      <div class="step"><span class="num">1</span><h4>Sign up for Fo</h4><p>About two minutes. Free plan, no card. You get your own AI assistant with a real phone number on text.</p></div>
-      <div class="step"><span class="num">2</span><h4>Text your first meal photo</h4><p>Snap your plate, send it, and Fo estimates calories and macros, then keeps a running log of your day.</p></div>
-      <div class="step"><span class="num">3</span><h4>Let the coach coach</h4><p>Check-ins at the times you set, nudges before the day slips, a weekly recap, and even a check-in call.</p></div>
-    </div>
-    <div class="sample">
-      <h4>A sample day</h4>
-      <p class="you">You: <em>[photo of breakfast]</em></p>
-      <p><strong style="color:#4ade80">Fo:</strong> Breakfast looks like two eggs, wheat toast, and a coffee. About 420 calories, 24g protein. You're at 420 for the day.</p>
-      <p><strong style="color:#4ade80">Fo, 6pm:</strong> You haven't logged anything since breakfast. What did you have for lunch?</p>
-      <p><strong style="color:#4ade80">Fo, Sunday:</strong> This week you logged 5 of 7 days and averaged about 2,150 calories. Down 0.4 lb. Same time next week?</p>
+      <div class="step reveal"><div class="n">1</div><h3>Sign up for Fo</h3><p>About two minutes. Free plan, no card. You get your own AI assistant with a real phone number on text.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Text your first meal photo</h3><p>Snap your plate, send it, and Fo estimates calories and macros, then keeps a running log of your day.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Let the coach coach</h3><p>Check-ins at the times you set, nudges before the day slips, a weekly recap, and even a check-in call.</p></div>
     </div>
   </div>
 </section>
 
-<section id="prompts">
+<section id="prompts" style="background:var(--bg2)">
   <div class="wrap">
-    <div class="eyebrow">Setup</div>
-    <h2>Copy these prompts. Your coach configures itself.</h2>
-    <p class="lead">Send these to Fo by text after you sign up. Swap in your own numbers, times, and goal. Say it in your own words if you prefer: this is the shape that works.</p>
+    <p class="eyebrow reveal">Setup</p>
+    <h2 class="reveal">Copy these prompts. Your coach configures itself.</h2>
+    <p class="lead reveal">Send these to Fo by text after you sign up. Swap in your own numbers, times, and goal. Say it in your own words if you prefer: this is the shape that works.</p>
     <div class="prompts">
-      <div class="prompt"><span class="n">1</span><div class="body"><h4>Set your goal and start the food log (send once)</h4><p class="q">"I'm starting photo calorie tracking. My goal is 2,000 calories a day and losing 10 pounds. From now on, every meal photo I send: estimate calories and macros, log it with the time, and keep a running total for the day."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">2</span><div class="body"><h4>Lock in the log format</h4><p class="q">"Log every meal as: time, what you saw, calories, protein, carbs, fat, and my running total. If a photo is unclear, ask me what I'd add before you guess."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">3</span><div class="body"><h4>Set the meal nudges</h4><p class="q">"If I haven't sent you a meal photo by 1pm, nudge me. Same again at 7pm."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">4</span><div class="body"><h4>Set the morning check-in</h4><p class="q">"Every morning at 8am, check in with me: recap yesterday's total against my goal, ask me one question about how I'm feeling, and remind me to photo every meal today."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">5</span><div class="body"><h4>Set the evening recap</h4><p class="q">"Every night at 9pm, recap my day: calories vs my goal, whether I hit my protein, and one specific fix for tomorrow."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">6</span><div class="body"><h4>Set the weekly recap</h4><p class="q">"Every Sunday at 6pm, send my weekly recap: days logged out of 7, average daily calories, my weight trend if I've shared it, and one fix for next week."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">7</span><div class="body"><h4>Add the check-in call (optional)</h4><p class="q">"Call me every weekday at 7am for a two-minute check-in on my food log. Keep it short and keep me honest."</p></div><button class="copy">Copy</button></div>
-      <div class="prompt"><span class="n">8</span><div class="body"><h4>Send your first meal</h4><p class="q">Then just text a photo of your plate. That's the whole service.</p></div><button class="copy" style="visibility:hidden">Copy</button></div>
+      <div class="prompt reveal"><span class="n">1</span><div class="body"><h4>Set your goal and start the food log (send once)</h4><p class="q">"I'm starting photo calorie tracking. My goal is 2,000 calories a day and losing 10 pounds. From now on, every meal photo I send: estimate calories and macros, log it with the time, and keep a running total for the day."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">2</span><div class="body"><h4>Lock in the log format</h4><p class="q">"Log every meal as: time, what you saw, calories, protein, carbs, fat, and my running total. If a photo is unclear, ask me what I'd add before you guess."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">3</span><div class="body"><h4>Set the meal nudges</h4><p class="q">"If I haven't sent you a meal photo by 1pm, nudge me. Same again at 7pm."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">4</span><div class="body"><h4>Set the morning check-in</h4><p class="q">"Every morning at 8am, check in with me: recap yesterday's total against my goal, ask me one question about how I'm feeling, and remind me to photo every meal today."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">5</span><div class="body"><h4>Set the evening recap</h4><p class="q">"Every night at 9pm, recap my day: calories vs my goal, whether I hit my protein, and one specific fix for tomorrow."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">6</span><div class="body"><h4>Set the weekly recap</h4><p class="q">"Every Sunday at 6pm, send my weekly recap: days logged out of 7, average daily calories, my weight trend if I've shared it, and one fix for next week."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">7</span><div class="body"><h4>Add the check-in call (optional)</h4><p class="q">"Call me every weekday at 7am for a two-minute check-in on my food log. Keep it short and keep me honest."</p></div><button class="copy">Copy</button></div>
+      <div class="prompt reveal"><span class="n">8</span><div class="body"><h4>Send your first meal</h4><p class="q">Then just text a photo of your plate. That's the whole service.</p></div><button class="copy">Copy</button></div>
     </div>
   </div>
 </section>
 
-<section id="honest" style="background:#fbfaf7">
+<section id="honest">
   <div class="wrap">
-    <div class="eyebrow">Honest</div>
-    <h2>What it is, and what it isn't</h2>
+    <p class="eyebrow reveal">Honest</p>
+    <h2 class="reveal">What it is, and what it isn't</h2>
     <div class="tiles">
-      <div class="tile"><h4>An accountability engine</h4><p>The daily check-in, the nudges, the weekly recap. That's the part that actually changes behavior.</p></div>
-      <div class="tile"><h4>An estimate, not a lab</h4><p>Photo estimates are good at recognizing food and weaker at portion size, and hidden calories like oils and dressings get undercounted. Treat the numbers as a running score.</p></div>
-      <div class="tile"><h4>Not medical advice</h4><p>Fo is not a dietitian or a doctor. Talk to yours about any health condition or plan.</p></div>
-      <div class="tile"><h4>The human part stays human</h4><p>Fo is the closest thing to a body tutor that fits in your pocket, but no AI is a real human coach. If you want one, hire one. Fo makes the days between sessions count.</p></div>
+      <div class="tile reveal"><h4><span class="ico">✓</span>An accountability engine</h4><p>The daily check-in, the nudges, the weekly recap. That's the part that actually changes behavior.</p></div>
+      <div class="tile reveal"><h4><span class="ico">✓</span>An estimate, not a lab</h4><p>Photo estimates are good at recognizing food and weaker at portion size, and hidden calories like oils and dressings get undercounted. Treat the numbers as a running score.</p></div>
+      <div class="tile reveal"><h4><span class="ico">✓</span>Not medical advice</h4><p>Fo is not a dietitian or a doctor. Talk to yours about any health condition or plan.</p></div>
+      <div class="tile reveal"><h4><span class="ico">✓</span>The human part stays human</h4><p>Fo is the closest thing to a body tutor that fits in your pocket, but no AI is a real human coach. If you want one, hire one. Fo makes the days between sessions count.</p></div>
     </div>
-    <div class="faq">
+    <div class="faq reveal">
       <details open><summary>Does it really cost nothing?</summary><p>Yes. Fo's free plan covers this. You sign up with the link and start the same day. No card, no trial, no upsell.</p></details>
       <details><summary>Does Fo actually call me?</summary><p>It can. Prompt 7 schedules a real check-in call at whatever time and days you set.</p></details>
       <details><summary>How accurate are the calorie numbers?</summary><p>Good enough to track trends, not good enough to bet a medical plan on. Consistency in logging matters more than decimal-point precision.</p></details>
@@ -257,11 +320,11 @@ footer p{max-width:720px}
   </div>
 </section>
 
-<div class="band" id="join">
+<div class="band" id="join" style="background:radial-gradient(700px 340px at 50% 110%,rgba(52,212,116,.16),transparent 70%),var(--bg2)">
   <div class="wrap">
-    <h2>Your coach is one text away.</h2>
-    <p>Sign up free, paste the prompts, and text a photo of your next meal. The estimate and the accountability both start today.</p>
-    <a class="btn btn-main" href="https://wajo.ai/join?code=GROUPREACH">Sign up free and start today</a>
+    <h2 class="reveal">Your coach is one text away.</h2>
+    <p class="lead reveal" style="margin:18px auto 0;text-align:center">Sign up free, paste the prompts, and text a photo of your next meal. The estimate and the accountability both start today.</p>
+    <a class="btn btn-main reveal" href="https://wajo.ai/join?code=GROUPREACH">Sign up free and start today</a>
   </div>
 </div>
 
@@ -271,6 +334,9 @@ footer p{max-width:720px}
     <p class="src">Sources: <a href="https://www.eesel.ai/blog/cal-ai-pricing">Cal AI pricing</a>, <a href="https://www.mybodytutor.com/join">MyBodyTutor join page</a>, <a href="https://fitia.app/learn/article/ai-calorie-photo-apps-accuracy-2026/">Fitia accuracy review</a></p>
   </div>
 </footer>
+
+<div class="sticky-cta" id="stickyCta"><a href="https://wajo.ai/join?code=GROUPREACH">Sign up free · no card, no trial</a></div>
+
 <script>
 document.querySelectorAll('.copy').forEach(function(b){
   b.addEventListener('click',function(){
@@ -278,11 +344,14 @@ document.querySelectorAll('.copy').forEach(function(b){
     navigator.clipboard.writeText(t).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)});
   });
 });
-</script>
-<div class="sticky-cta" id="stickyCta"><a href="https://wajo.ai/join?code=GROUPREACH">Sign up free · no card, no trial</a></div>
-<script>
-var bar=document.getElementById("stickyCta");
-if("IntersectionObserver" in window){new IntersectionObserver(function(e){bar.classList.toggle("show",!e[0].isIntersecting)},{threshold:.05}).observe(document.querySelector("header.hero"))}
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('solid',window.scrollY>40)},{passive:true});
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+} else {document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})}
+var bar=document.getElementById('stickyCta');
+if('IntersectionObserver' in window){new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:.05}).observe(document.querySelector('.hero'))}
 </script>
 </body>
 </html>
