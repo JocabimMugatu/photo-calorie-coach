@@ -401,10 +401,12 @@ document.querySelectorAll('.copy').forEach(function(b){
 });
 var nav=document.getElementById('nav');
 window.addEventListener('scroll',function(){nav.classList.toggle('solid',window.scrollY>40)},{passive:true});
+var els=document.querySelectorAll('.reveal');
 if('IntersectionObserver' in window){
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
-} else {document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+  els.forEach(function(el){io.observe(el)});
+  setTimeout(function(){els.forEach(function(el){el.classList.add('in')})},1200);
+} else {els.forEach(function(el){el.classList.add('in')})}
 var bar=document.getElementById('stickyCta');
 if('IntersectionObserver' in window){new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:.05}).observe(document.querySelector('.hero'))}
 </script>
