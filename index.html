@@ -16,6 +16,14 @@
 <meta name="twitter:description" content="Text a photo of every meal. An AI coach that estimates, logs, and checks in. Free.">
 <meta name="twitter:image" content="https://jocabimmugatu.github.io/photo-calorie-coach/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B8%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0e1116">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does it really cost nothing?","acceptedAnswer":{"@type":"Answer","text":"Yes. Fo's free plan covers this. You sign up with the link and start the same day. No card, no trial, no upsell."}},
+{"@type":"Question","name":"How accurate are the calorie numbers?","acceptedAnswer":{"@type":"Answer","text":"Good enough to track trends, not good enough to bet a medical plan on. Consistency in logging matters more than decimal-point precision."}},
+{"@type":"Question","name":"Can I use it for macros and weight goals too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The first prompt frames every estimate and recap around whatever goal you set."}}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -129,6 +137,7 @@ footer p{max-width:720px}
 .sticky-cta a:active{background:var(--green-dark)}
 .sticky-cta.show{display:block}
 @media(min-width:761px){.sticky-cta{display:none!important}}
+@media(max-width:400px){.kicker{font-size:11px;letter-spacing:.06em;padding:5px 11px}}
 @media(max-width:760px){
   .versus,.steps,.tiles{grid-template-columns:1fr}
   section{padding:52px 0}
