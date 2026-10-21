@@ -51,7 +51,7 @@ nav .cta-sm:hover{opacity:.85}
 .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:70px;align-items:center}
 .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--txt2);border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin-bottom:30px}
 .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green-dot)}
-h1{font-size:clamp(40px,5.4vw,68px);line-height:1.05;font-weight:600;letter-spacing:-.04em}
+h1{font-size:clamp(40px,5.4vw,68px);line-height:1.05;font-weight:600;letter-spacing:-.045em}
 h1 em{font-style:normal;color:var(--green)}
 .sub{font-size:16.5px;color:var(--txt2);max-width:500px;margin-top:22px;line-height:1.65}
 .sub strong{color:var(--txt);font-weight:600}
@@ -137,8 +137,8 @@ h2{font-size:clamp(26px,3.2vw,40px);line-height:1.14;font-weight:600;letter-spac
 .note .from{font-size:11px;color:var(--muted);margin-bottom:10px}
 .note p{font-size:13.5px;color:#222;line-height:1.55}
 /* prompts */
-.prompts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
-.prompt{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s}
+.prompts{columns:2;column-gap:12px;margin-top:48px}
+.prompt{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s;break-inside:avoid;margin-bottom:12px}
 .prompt:hover{border-color:var(--line2)}
 .prompt .n{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--txt2);min-width:26px;height:26px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;background:var(--bg2)}
 .prompt .body{flex:1;min-width:0}
@@ -181,13 +181,43 @@ footer p{max-width:720px;margin-bottom:8px}
 .sticky-cta a{display:block;text-align:center;background:#0a0a0a;color:#fff;font-weight:500;font-size:15px;padding:14px 18px;border-radius:999px;text-decoration:none}
 .sticky-cta.show{display:block}
 @media(min-width:761px){.sticky-cta{display:none!important}}
+/* polish pass */
+.hero{position:relative}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(10,10,10,.05) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 72%);mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 72%);pointer-events:none}
+.hero .wrap{position:relative}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:scroll 32s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{display:inline-flex;align-items:center;gap:9px;padding:15px 24px;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--txt2);white-space:nowrap}
+.marquee span i{color:var(--green);font-style:normal}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.tbl tbody tr:hover td{background:var(--bg2)}
+.tbl tbody tr:hover td.fo-col{background:#eef6f0}
+.dead:hover,.step:hover,.note:hover,.prompt:hover,.tile:hover{box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.btn-main:hover{transform:translateY(-1px)}
+section[id]{scroll-margin-top:74px}
+.chat>*{opacity:0;animation:pop .5s cubic-bezier(.2,.6,.2,1) forwards}
+.chat>*:nth-child(1){animation-delay:.25s}
+.chat>*:nth-child(2){animation-delay:.8s}
+.chat>*:nth-child(3){animation-delay:1s}
+.chat>*:nth-child(4){animation-delay:1.45s}
+.chat>*:nth-child(5){animation-delay:1.65s}
+.chat>*:nth-child(6){animation-delay:2.1s}
+.chat>*:nth-child(7){animation-delay:2.45s}
+@keyframes pop{from{opacity:0;transform:translateY(9px) scale(.97)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none}
+  .chat>*{animation:none;opacity:1}
+  .reveal{transition:none;opacity:1;transform:none}
+}
 @media(max-width:760px){
   section{padding:64px 0}
   .hero{padding:110px 0 60px}
   .hero-grid{grid-template-columns:1fr;gap:44px}
   .phone{margin:0 auto}
   h2{font-size:28px}
-  .deads,.steps,.prompts,.tiles{grid-template-columns:1fr}
+  .deads,.steps,.tiles{grid-template-columns:1fr}
+  .prompts{columns:1}
   .tbl table{font-size:12px}
   .tbl th,.tbl td{padding:9px 10px}
 }
@@ -244,7 +274,7 @@ footer p{max-width:720px;margin-bottom:8px}
   </div>
 </header>
 
-<div class="divider"></div>
+<div class="marquee" aria-hidden="true"><div class="marquee-track"><span><i>✓</i>No credit card</span><span><i>✓</i>No trial</span><span><i>✓</i>Your own private assistant</span><span><i>✓</i>Delete it anytime</span><span><i>✓</i>Photo estimates</span><span><i>✓</i>Running daily log</span><span><i>✓</i>Scheduled check-ins</span><span><i>✓</i>Weekly recap</span><span><i>✓</i>Check-in calls</span><span><i>✓</i>Setup in two minutes</span><span><i>✓</i>No credit card</span><span><i>✓</i>No trial</span><span><i>✓</i>Your own private assistant</span><span><i>✓</i>Delete it anytime</span><span><i>✓</i>Photo estimates</span><span><i>✓</i>Running daily log</span><span><i>✓</i>Scheduled check-ins</span><span><i>✓</i>Weekly recap</span><span><i>✓</i>Check-in calls</span><span><i>✓</i>Setup in two minutes</span></div></div>
 
 <section id="why">
   <div class="wrap">
@@ -381,6 +411,7 @@ footer p{max-width:720px;margin-bottom:8px}
 
 <footer>
   <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px"><div class="brand" style="font-size:13px;color:var(--txt)"><span class="mark"><b></b><i></i></span>Photo Calorie Coach</div><span style="font-size:12px;color:var(--muted)">Free forever · no card · no trial</span></div>
     <p>Not medical advice. Fo is an AI assistant from Wajo, not a dietitian or doctor. Calorie numbers from photos are estimates. Competitor pricing from public sources as of October 2026 and may change.</p>
     <p>Sources: <a href="https://www.eesel.ai/blog/cal-ai-pricing">Cal AI pricing</a>, <a href="https://www.mybodytutor.com/join">MyBodyTutor join page</a>, <a href="https://fitia.app/learn/article/ai-calorie-photo-apps-accuracy-2026/">Fitia accuracy review</a></p>
   </div>
