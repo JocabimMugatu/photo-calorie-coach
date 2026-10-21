@@ -162,6 +162,28 @@ footer p{max-width:720px;margin-bottom:10px}
 .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:90;display:none;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(8,9,11,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
 .sticky-cta a{display:block;text-align:center;background:var(--green);color:#04110a;font-weight:700;font-size:15.5px;padding:14px 18px;border-radius:999px;text-decoration:none}
 .sticky-cta.show{display:block}
+/* trust strip */
+.trust{margin-top:18px;display:flex;gap:20px 26px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.trust span{display:flex;align-items:center;gap:7px}
+.trust i{color:var(--green);font-style:normal;font-weight:700}
+/* why free */
+.why{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:46px 42px;margin-top:52px;max-width:900px}
+.why p{color:var(--txt2);font-size:16px;max-width:720px}
+.why p strong{color:var(--txt);font-weight:600}
+.why .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:30px}
+.why .cell{border-top:1px solid var(--line2);padding-top:18px}
+.why .cell h4{font-size:15px;margin-bottom:6px}
+.why .cell p{font-size:13.5px}
+/* dayflow */
+.dayflow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:52px}
+.note{background:var(--surface2);border:1px solid var(--line2);border-radius:14px;padding:18px 18px 16px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.note .when{font-size:11px;color:var(--green);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.note .from{font-size:11px;color:var(--muted);margin-bottom:10px}
+.note p{font-size:13.5px;color:var(--txt);line-height:1.55}
+/* polish */
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.typing i{animation:none}}
+@media(max-width:900px){.why .row{grid-template-columns:1fr}.why{padding:34px 26px}}
 @media(min-width:761px){.sticky-cta{display:none!important}}
 @media(max-width:760px){
   section{padding:72px 0}
@@ -180,6 +202,9 @@ footer p{max-width:720px;margin-bottom:10px}
 {"@type":"Question","name":"How accurate are the calorie numbers?","acceptedAnswer":{"@type":"Answer","text":"Good enough to track trends, not good enough to bet a medical plan on. Consistency in logging matters more than decimal-point precision."}},
 {"@type":"Question","name":"Can I use it for macros and weight goals too?","acceptedAnswer":{"@type":"Answer","text":"Yes. The first prompt frames every estimate and recap around whatever goal you set."}}
 ]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Photo Calorie Coach","applicationCategory":"HealthApplication","operatingSystem":"Web, SMS","description":"Text a photo of every meal to your own AI assistant. Get calorie and macro estimates, a running daily log, scheduled check-ins, and a weekly recap. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 </script>
 </head>
 <body>
@@ -204,6 +229,7 @@ footer p{max-width:720px;margin-bottom:10px}
           <a class="btn btn-ghost" href="#compare">See the comparison</a>
         </div>
         <p class="hero-note">Two-minute signup. No card. No trial. It just works.</p>
+        <div class="trust reveal"><span><i>&#10003;</i> No credit card</span><span><i>&#10003;</i> No trial</span><span><i>&#10003;</i> Your own private assistant</span><span><i>&#10003;</i> Delete it anytime</span></div>
       </div>
       <div class="reveal">
         <div class="phone">
@@ -269,6 +295,19 @@ footer p{max-width:720px;margin-bottom:10px}
   </div>
 </section>
 
+<section id="day">
+  <div class="wrap">
+    <p class="eyebrow reveal">The coaching</p>
+    <h2 class="reveal">What the accountability actually looks like</h2>
+    <p class="lead reveal">These are the messages Fo sends on its own, at the times you set. This is what the $399 coaches sell.</p>
+    <div class="dayflow">
+      <div class="note reveal"><div class="when">1:00 PM</div><div class="from">Fo &middot; text</div><p>No meal photo since breakfast. Send your lunch before the afternoon slips.</p></div>
+      <div class="note reveal"><div class="when">9:00 PM</div><div class="from">Fo &middot; text</div><p>You logged 1,740 of your 2,000 goal. Protein 118g. Solid day. One fix: lunch went unphotographed, so that number is a guess.</p></div>
+      <div class="note reveal"><div class="when">Sunday 6:00 PM</div><div class="from">Fo &middot; text</div><p>Week recap: 6 of 7 days logged, 1,930 average calories, protein hit 5 of 7 days. Fix for next week: the weekend dips.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="how">
   <div class="wrap">
     <p class="eyebrow reveal">How it works</p>
@@ -299,6 +338,21 @@ footer p{max-width:720px;margin-bottom:10px}
   </div>
 </section>
 
+<section id="whyfree" style="background:var(--bg2)">
+  <div class="wrap">
+    <p class="eyebrow reveal">Trust</p>
+    <h2 class="reveal">Why is this actually free?</h2>
+    <div class="why reveal">
+      <p>Fo is an AI assistant from <strong>Wajo AI</strong> with a real free plan, and everything on this page runs on it: the estimates, the running log, the daily check-ins, even the phone calls. Wajo charges for bigger uses of the assistant. A food-log coach does not need one, so there is nothing to charge for. <strong>No card gets you in, and there is no upgrade trap on the other side.</strong></p>
+      <div class="row">
+        <div class="cell"><h4>Your own assistant</h4><p>You get your own Fo, with its own number on text. Not an account on someone's platform.</p></div>
+        <div class="cell"><h4>Your photos stay yours</h4><p>Meal photos are messages in your own chat. Nothing is posted anywhere, and Wajo does not use your chats to train third-party AI models.</p></div>
+        <div class="cell"><h4>Walk away anytime</h4><p>No subscription to cancel because there is none. Stop texting and it stops. Delete your assistant whenever you want.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="honest">
   <div class="wrap">
     <p class="eyebrow reveal">Honest</p>
@@ -315,6 +369,7 @@ footer p{max-width:720px;margin-bottom:10px}
       <details><summary>How accurate are the calorie numbers?</summary><p>Good enough to track trends, not good enough to bet a medical plan on. Consistency in logging matters more than decimal-point precision.</p></details>
       <details><summary>Can I use it for macros and weight goals too?</summary><p>Yes. Prompt 1 frames every estimate and recap around whatever goal you set: cutting, bulking, protein floor, whatever you're chasing.</p></details>
       <details><summary>What happens to my food photos?</summary><p>They're messages in your own chat with your own assistant. Nothing is posted anywhere and no one else sees your feed. Fo doesn't use your chats to train third-party AI models.</p></details>
+      <details><summary>Who is behind this?</summary><p>The assistant is Fo, made by Wajo AI. This page is a free setup guide, not a store: nobody here is selling you a subscription, and the prompts are plain text you can use with any assistant.</p></details>
       <details><summary>What's the catch?</summary><p>None. Fo's assistant has a free plan, and this page just teaches you the prompts that turn it into a food-log coach. If you ever want a bigger plan, that's your call. This workflow runs on free.</p></details>
     </div>
   </div>
