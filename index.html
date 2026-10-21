@@ -196,15 +196,9 @@ footer p{max-width:720px;margin-bottom:8px}
 .dead:hover,.step:hover,.note:hover,.prompt:hover,.tile:hover{box-shadow:0 12px 32px rgba(0,0,0,.08)}
 .btn-main:hover{transform:translateY(-1px)}
 section[id]{scroll-margin-top:74px}
-.chat>*{opacity:0;animation:pop .5s cubic-bezier(.2,.6,.2,1) forwards}
-.chat>*:nth-child(1){animation-delay:.25s}
-.chat>*:nth-child(2){animation-delay:.8s}
-.chat>*:nth-child(3){animation-delay:1s}
-.chat>*:nth-child(4){animation-delay:1.45s}
-.chat>*:nth-child(5){animation-delay:1.65s}
-.chat>*:nth-child(6){animation-delay:2.1s}
-.chat>*:nth-child(7){animation-delay:2.45s}
-@keyframes pop{from{opacity:0;transform:translateY(9px) scale(.97)}to{opacity:1;transform:none}}
+.chat>*{opacity:0;transform:translateY(9px) scale(.97);transition:opacity .45s cubic-bezier(.2,.6,.2,1),transform .45s cubic-bezier(.2,.6,.2,1)}
+.chat>.on{opacity:1;transform:none}
+.chat .meta.on{opacity:.9;transform:none}
 @media (prefers-reduced-motion: reduce){
   .marquee-track{animation:none}
   .chat>*{animation:none;opacity:1}
@@ -259,13 +253,16 @@ section[id]{scroll-margin-top:74px}
       <div class="reveal">
         <div class="phone">
           <div class="phone-head"><div class="avatar"><b></b></div><div><b>Fo · your coach</b><span>online</span></div></div>
-          <div class="chat">
+          <div class="chat" id="chat">
             <div class="photo-bubble"><div class="plate plate-1"><i style="width:26px;height:26px;background:#f0a24b;left:16px;top:16px"></i><i style="width:20px;height:14px;background:#e8d15a;left:44px;top:12px;border-radius:8px"></i><i style="width:18px;height:18px;background:#f5f0e6;right:14px;bottom:14px"></i></div><div class="plate plate-2"><i style="width:22px;height:16px;background:#c96f4a;left:10px;top:12px;border-radius:6px"></i><i style="width:14px;height:14px;background:#7fb069;right:12px;bottom:12px"></i></div></div>
             <span class="meta" style="align-self:flex-end">8:04 AM</span>
             <div class="msg them">Two eggs, wheat toast, and a coffee. <b>About 420 calories, 24g protein.</b> You're at 420 for the day.</div>
             <div class="msg me">skipped lunch, had a burrito at 3</div>
             <div class="msg them">Burrito, ~750. Running total: <b>1,170</b>. Still room for a solid dinner under your 2,000 goal.</div>
-            <div class="msg me">love it</div>
+            <span class="meta" style="align-self:flex-start">1:02 PM</span>
+            <div class="msg them">You've gone quiet since breakfast. Send dinner when you have it.</div>
+            <div class="msg me">grilled chicken bowl, extra rice</div>
+            <div class="msg them">~610 with the extra rice. Day total: <b>1,780 of 2,000</b>. Protein 131g. Strong day.</div>
             <div class="typing"><i></i><i></i><i></i></div>
           </div>
         </div>
@@ -434,6 +431,33 @@ if('IntersectionObserver' in window){
 } else {els.forEach(function(el){el.classList.add('in')})}
 var bar=document.getElementById('stickyCta');
 if('IntersectionObserver' in window){new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:.05}).observe(document.querySelector('.hero'))}
+/* chat timeline */
+(function(){
+  var chat=document.getElementById('chat'); if(!chat) return;
+  var kids=[].slice.call(chat.children), typing=chat.querySelector('.typing');
+  function show(i){kids[i].classList.add('on')}
+  function hideAll(){kids.forEach(function(k){k.classList.remove('on')})}
+  function typingFor(ms,then){typing.classList.add('on');setTimeout(function(){typing.classList.remove('on');then()},ms)}
+  function run(){
+    hideAll();
+    setTimeout(function(){show(0);show(1)},400);
+    typingFor(1100,function(){
+      show(2);
+      setTimeout(function(){show(3)},1000);
+      setTimeout(function(){typingFor(1200,function(){
+        show(4);
+        setTimeout(function(){show(5);show(6)},1000);
+        setTimeout(function(){show(7)},2100);
+        setTimeout(function(){typingFor(1200,function(){
+          show(8);
+          setTimeout(run,5200);
+        })},2900);
+      })},250);
+    });
+  }
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){kids.forEach(function(k){k.classList.add('on')});return}
+  setTimeout(run,600);
+})();
 </script>
 </body>
 </html>
