@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photo Calorie Coach, free. Cal AI estimates + MyBodyTutor accountability, $0</title>
 <meta name="description" content="Text a photo of every meal. Get a calorie estimate, a running daily log, and an AI coach that checks in on you, even calls you. Free. The photo apps don't coach you and the human coach charges ~$399/mo.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Photo Calorie Coach">
+<meta property="og:title" content="Photo Calorie Coach — Cal AI estimates, MyBodyTutor accountability, $0">
+<meta property="og:description" content="Text a photo of every meal. Get the estimate, the running log, and an AI coach that checks in on you, by text and on a phone call. Free.">
+<meta property="og:url" content="https://jocabimmugatu.github.io/photo-calorie-coach/">
+<meta property="og:image" content="https://jocabimmugatu.github.io/photo-calorie-coach/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Photo Calorie Coach — both for $0">
+<meta name="twitter:description" content="Text a photo of every meal. An AI coach that estimates, logs, and checks in. Free.">
+<meta name="twitter:image" content="https://jocabimmugatu.github.io/photo-calorie-coach/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -109,6 +120,15 @@ footer p{max-width:720px}
 .src{margin-top:10px}
 .src a{color:var(--green-dark)}
 /* RESPONSIVE */
+/* HERO ART */
+.hero-art{max-width:760px;margin:46px auto 0}
+.hero-art img{width:100%;height:auto;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+/* STICKY MOBILE CTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:70;display:none;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(14,17,22,.95);backdrop-filter:blur(10px);box-shadow:0 -8px 28px rgba(0,0,0,.3)}
+.sticky-cta a{display:block;text-align:center;background:var(--green);color:#fff;font-weight:800;font-size:15.5px;padding:14px 18px;border-radius:999px;text-decoration:none}
+.sticky-cta a:active{background:var(--green-dark)}
+.sticky-cta.show{display:block}
+@media(min-width:761px){.sticky-cta{display:none!important}}
 @media(max-width:760px){
   .versus,.steps,.tiles{grid-template-columns:1fr}
   section{padding:52px 0}
@@ -129,6 +149,7 @@ footer p{max-width:720px}
       <a class="btn btn-ghost" href="#compare">See the comparison</a>
     </div>
     <p class="hero-note">Two-minute signup. No card. No trial. It just works.</p>
+<figure class="hero-art"><img src="hero.png" alt="Illustration: a phone on a kitchen counter next to two plated meals, texting a meal photo to your coach" loading="lazy" width="1400"></figure>
   </div>
 </header>
 
@@ -221,6 +242,8 @@ footer p{max-width:720px}
       <details><summary>Does Fo actually call me?</summary><p>It can. Prompt 7 schedules a real check-in call at whatever time and days you set.</p></details>
       <details><summary>How accurate are the calorie numbers?</summary><p>Good enough to track trends, not good enough to bet a medical plan on. Consistency in logging matters more than decimal-point precision.</p></details>
       <details><summary>Can I use it for macros and weight goals too?</summary><p>Yes. Prompt 1 frames every estimate and recap around whatever goal you set: cutting, bulking, protein floor, whatever you're chasing.</p></details>
+      <details><summary>What happens to my food photos?</summary><p>They're messages in your own chat with your own assistant. Nothing is posted anywhere and no one else sees your feed. Fo doesn't use your chats to train third-party AI models.</p></details>
+      <details><summary>What's the catch?</summary><p>None. Fo's assistant has a free plan, and this page just teaches you the prompts that turn it into a food-log coach. If you ever want a bigger plan, that's your call. This workflow runs on free.</p></details>
     </div>
   </div>
 </section>
@@ -246,6 +269,11 @@ document.querySelectorAll('.copy').forEach(function(b){
     navigator.clipboard.writeText(t).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)});
   });
 });
+</script>
+<div class="sticky-cta" id="stickyCta"><a href="https://wajo.ai/join?code=GROUPREACH">Sign up free · no card, no trial</a></div>
+<script>
+var bar=document.getElementById("stickyCta");
+if("IntersectionObserver" in window){new IntersectionObserver(function(e){bar.classList.toggle("show",!e[0].isIntersecting)},{threshold:.05}).observe(document.querySelector("header.hero"))}
 </script>
 </body>
 </html>
